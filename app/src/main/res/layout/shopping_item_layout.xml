@@ -17,6 +17,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:transitionName="shared_image"
             android:id="@+id/image"
             android:src="@drawable/milk_carton"
             android:scaleType="fitCenter"

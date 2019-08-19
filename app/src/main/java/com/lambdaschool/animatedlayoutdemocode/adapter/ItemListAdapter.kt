@@ -56,23 +56,12 @@ class ItemListAdapter(val dataList: List<ShoppingItem>) :
         viewHolder.image.setImageDrawable(context?.getDrawable(data.drawableId))
         viewHolder.card.tag = data.selected
 
-        if (data.selected) {
-            viewHolder.card.setCardBackgroundColor(ContextCompat.getColor(viewHolder.card.context, R.color.colorAccent))
-        } else {
-            viewHolder.card.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    viewHolder.card.context,
-                    R.color.cardview_light_background
-                )
-            )
-        }
-
         viewHolder.card.setOnClickListener { view ->
             val intent = Intent(view.context, ItemDetail::class.java)
             intent.putExtra(ItemDetail.ITEM_KEY, data)
             view.context.startActivity(intent)
 
-            val optionsBundle: Bundle = ActivityOptions.makeSceneTransitionAnimation(view.context as Activity).toBundle()
+            val optionsBundle: Bundle = ActivityOptions.makeSceneTransitionAnimation(view.context as Activity, viewHolder.image, "shared_image").toBundle()
 
             view.context.startActivity(intent, optionsBundle)
 
