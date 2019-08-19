@@ -19,5 +19,7 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         list.layoutManager = layoutManager
         list.adapter = ItemListAdapter(ShoppingItemConstants.generateItems())
+        val itemListAdapter = ItemListAdapter(ShoppingItemConstants.generateItems())
+        list.adapter = itemListAdapter
     }
 }

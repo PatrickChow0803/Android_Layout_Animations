@@ -1,3 +1,5 @@
 package com.lambdaschool.animatedlayoutdemocode.model
 
-class ShoppingItem(val name: String, val drawableId: Int, var selected: Boolean = false)
+import java.io.Serializable
+
+class ShoppingItem(val name: String, val drawableId: Int, var selected: Boolean = false):Serializable
