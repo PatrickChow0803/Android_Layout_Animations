@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.lambdaschool.animatedlayoutdemocode.R.layout.activity_main)
 
-        list.setHasFixedSize(true) dwasda w
+        list.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         list.layoutManager = layoutManager
         list.adapter = ItemListAdapter(ShoppingItemConstants.generateItems())

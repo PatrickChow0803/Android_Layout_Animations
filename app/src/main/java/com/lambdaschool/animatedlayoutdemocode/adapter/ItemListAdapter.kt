@@ -63,25 +63,7 @@ class ItemListAdapter(private val dataList: List<ShoppingItem>) :
         }
 
         viewHolder.card.setOnClickListener { view ->
-            if (view.tag as Boolean) {
-                view.tag = false
-                data.selected = false
-                viewHolder.card.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        viewHolder.card.context,
-                        R.color.cardview_light_background
-                    )
-                )
-            } else {
-                view.tag = true
-                data.selected = true
-                viewHolder.card.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        viewHolder.card.context,
-                        R.color.colorAccent
-                    )
-                )
-            }
+            
         }
 
     }
