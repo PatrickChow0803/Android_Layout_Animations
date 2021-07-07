@@ -1,0 +1,80 @@
+package com.lambdaschool.sprint2_challenge
+
+import android.app.Activity
+import android.app.ActivityOptions
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.lambdaschool.animatedlayoutdemocode.R
+import com.lambdaschool.animatedlayoutdemocode.activity.ItemDetail
+import com.lambdaschool.animatedlayoutdemocode.model.ShoppingItem
+import kotlinx.android.synthetic.main.shopping_item_layout.view.*
+
+import java.util.ArrayList
+
+class ItemListAdapter(val dataList: List<ShoppingItem>) :
+    RecyclerView.Adapter<ItemListAdapter.ViewHolder>() {
+    /**
+     * Returns the total number of items in the data set held by the adapter.
+     *
+     * @return The total number of items in this adapter.
+     */
+    override fun getItemCount(): Int {
+        return dataList.size
+    }
+
+    private var context: Context? = null
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val card = view.card_view as CardView
+        val image = view.image as ImageView
+        val name = view.name_text as TextView
+    }
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
+        context = viewGroup.context
+        val view = LayoutInflater.from(context).inflate(R.layout.shopping_item_layout, viewGroup, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
+        val data = dataList[i]
+        val formattedName = data.name.replace("_", " ").replace("[^A-Za-z ]", "")
+
+        viewHolder.name.text = formattedName
+        viewHolder.image.setImageDrawable(context?.getDrawable(data.drawableId))
+        viewHolder.card.tag = data.selected
+
+        viewHolder.card.setOnClickListener { view ->
+            val intent = Intent(view.context, ItemDetail::class.java)
+            intent.putExtra(ItemDetail.ITEM_KEY, data)
+            view.context.startActivity(intent)
+
+            val optionsBundle: Bundle = ActivityOptions.makeSceneTransitionAnimation(view.context as Activity, viewHolder.image, "shared_image").toBundle()
+
+            view.context.startActivity(intent, optionsBundle)
+
+        }
+
+        setEnterAnimation(viewHolder.card)
+    }
+
+    fun setEnterAnimation(viewToAnimate: View) {
+
+        val animation: Animation = AnimationUtils.loadAnimation(viewToAnimate.context, R.anim.abc_fade_in)
+        viewToAnimate.startAnimation(animation)
+    }
+}
